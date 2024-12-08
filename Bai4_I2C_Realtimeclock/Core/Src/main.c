@@ -70,31 +70,31 @@ void offDay();
 void offMonth();
 void offYear();
 void checkTime();
-void checkAlart();
-void alartNotify();
-void checkTimeAlart();
-void displayAlartTime(uint16_t modeStatus);
+void checkAlert();
+void alertNotify();
+void checkTimeAlert();
+void displayAlertTime(uint16_t modeStatus);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint16_t secondAlart = 0;
-uint16_t minuteAlart = 0;
-uint16_t hourAlart = 0;
-uint16_t dayAlart = 0;
-uint16_t dateAlart = 0;
-uint16_t monthAlart = 0;
-uint16_t yearAlart = 0;
+uint16_t secondAlert = 0;
+uint16_t minuteAlert = 0;
+uint16_t hourAlert = 0;
+uint16_t dayAlert = 0;
+uint16_t dateAlert = 0;
+uint16_t monthAlert = 0;
+uint16_t yearAlert = 0;
 
-void setAlartInit()
+void setAlertInit()
 {
-	secondAlart = ds3231_sec-1;
-	minuteAlart = ds3231_min;
-	hourAlart = ds3231_hours;
-	dayAlart = ds3231_day;
-	dateAlart = ds3231_date;
-	monthAlart = ds3231_month;
-	yearAlart = ds3231_year;
+	secondAlert = ds3231_sec-1;
+	minuteAlert = ds3231_min;
+	hourAlert = ds3231_hours;
+	dayAlert = ds3231_day;
+	dateAlert = ds3231_date;
+	monthAlert = ds3231_month;
+	yearAlert = ds3231_year;
 }
 
 uint16_t modifyStatus = 0;
@@ -150,7 +150,7 @@ void toggleDisplayTime(uint8_t index, uint8_t toggle);
 
  setTimer2(200);
  ds3231_ReadTime();
- setAlartInit();
+ setAlertInit();
  updateTime(ds3231_sec, ds3231_min, ds3231_hours, ds3231_day, ds3231_date, ds3231_month, ds3231_year);
   while (1)
   {
@@ -169,7 +169,7 @@ void toggleDisplayTime(uint8_t index, uint8_t toggle);
 		  }
 		  ds3231_ReadTime();
 		  displayTime(modeStatus);
-		  checkAlart();
+		  checkAlert();
 	  }else if(modeStatus == 2){
 		  if(button_count[11] == 1){
 			  button_count[11] = 0;
@@ -297,9 +297,9 @@ void toggleDisplayTime(uint8_t index, uint8_t toggle);
 			  button_count[11] = 0;
 			  modeStatus = 1;
 			  lcd_Clear(BLACK);
-			  displayAlartTime(modeStatus);
+			  displayAlertTime(modeStatus);
 		  }
-		  setupAlart();
+		  setupAlert();
 
 	  }
     /* USER CODE END WHILE */
@@ -435,24 +435,24 @@ void displayTime(uint16_t modeStatus){
 	lcd_ShowIntNum(100, 250, modeStatus, 2, GREEN, BLACK, 24);
 }
 
-void displayAlartTime(uint16_t modeStatus){
+void displayAlertTime(uint16_t modeStatus){
 	lcd_ShowStr(10, 70, "Thu", YELLOW, BLACK, 24, 1);
 	lcd_ShowStr(55, 70, "Ngay", YELLOW, BLACK, 24, 1);
 	lcd_ShowStr(110, 70, "Thang", YELLOW, BLACK, 24, 1);
 	lcd_ShowStr(180, 70, "Nam", YELLOW, BLACK, 24, 1);
 
-	lcd_ShowIntNum(10, 100, dayAlart, 2, YELLOW, BLACK, 24);
-	lcd_ShowIntNum(60, 100, dateAlart, 2, YELLOW, BLACK, 24);
-	lcd_ShowIntNum(120, 100, monthAlart, 2, YELLOW, BLACK, 24);
-	lcd_ShowIntNum(180, 100, yearAlart, 2, YELLOW, BLACK, 24);
+	lcd_ShowIntNum(10, 100, dayAlert, 2, YELLOW, BLACK, 24);
+	lcd_ShowIntNum(60, 100, dateAlert, 2, YELLOW, BLACK, 24);
+	lcd_ShowIntNum(120, 100, monthAlert, 2, YELLOW, BLACK, 24);
+	lcd_ShowIntNum(180, 100, yearAlert, 2, YELLOW, BLACK, 24);
 
 	lcd_ShowStr(40, 160, "Gio", YELLOW, BLACK, 24, 1);
 	lcd_ShowStr(90, 160, "Phut", YELLOW, BLACK, 24, 1);
 	lcd_ShowStr(150, 160, "Giay", YELLOW, BLACK, 24, 1);
 
-	lcd_ShowIntNum(50, 190, hourAlart, 2, GREEN, BLACK, 24);
-	lcd_ShowIntNum(100, 190, minuteAlart, 2, GREEN, BLACK, 24);
-	lcd_ShowIntNum(150, 190, secondAlart, 2, GREEN, BLACK, 24);
+	lcd_ShowIntNum(50, 190, hourAlert, 2, GREEN, BLACK, 24);
+	lcd_ShowIntNum(100, 190, minuteAlert, 2, GREEN, BLACK, 24);
+	lcd_ShowIntNum(150, 190, secondAlert, 2, GREEN, BLACK, 24);
 
 	lcd_ShowStr(40, 250, "Mode: ", BLUE, BLACK, 24, 1);
 	lcd_ShowIntNum(100, 250, modeStatus, 2, GREEN, BLACK, 24);
@@ -529,38 +529,38 @@ void checkTime()
 	updateTime(ds3231_sec, ds3231_min, ds3231_hours, ds3231_day, ds3231_date, ds3231_month, ds3231_year);
 }
 
-void checkTimeAlart()
+void checkTimeAlert()
 {
-	if(secondAlart>59){
-	  secondAlart = 0;
-	  minuteAlart++;
+	if(secondAlert>59){
+	  secondAlert = 0;
+	  minuteAlert++;
 	}
-	if(minuteAlart>59){
-		minuteAlart = 0;
-	  hourAlart++;
+	if(minuteAlert>59){
+		minuteAlert = 0;
+	  hourAlert++;
 	}
-	if(hourAlart>23){
-		hourAlart = 0;
-		dayAlart++;
+	if(hourAlert>23){
+		hourAlert = 0;
+		dayAlert++;
 	}
-	if(dayAlart>8){
-		dayAlart = 2;
-		dateAlart++;
+	if(dayAlert>8){
+		dayAlert = 2;
+		dateAlert++;
 	}
-	if(dateAlart>30){
-		dateAlart = 0;
-		monthAlart++;
+	if(dateAlert>30){
+		dateAlert = 0;
+		monthAlert++;
 	}
-	if(monthAlart>30){
-		monthAlart = 0;
-		yearAlart++;
+	if(monthAlert>30){
+		monthAlert = 0;
+		yearAlert++;
 	}
-	if(yearAlart>99){
-		yearAlart = 1;
+	if(yearAlert>99){
+		yearAlert = 1;
 	}
 }
 
-void setupAlart()
+void setupAlert()
 {
 	if(button_count[12] == 1){
 		  button_count[12] = 0;
@@ -573,7 +573,7 @@ void setupAlart()
 		  if(isFlagModify() == 1){
 			  toggle = 1 - toggle;
 			  if(toggle){
-				  displayAlartTime(modeStatus);
+				  displayAlertTime(modeStatus);
 			  }else{
 				  offSecond();
 			  }
@@ -581,14 +581,14 @@ void setupAlart()
 		  if(button_count[3] == 1)
 		  {
 			  button_count[3] = 0;
-			  secondAlart++;
-			  checkTimeAlart();
+			  secondAlert++;
+			  checkTimeAlert();
 		  }
 	  }else if(modifyStatus == 1){
 		  if(isFlagModify() == 1){
 			  toggle = 1 - toggle;
 			  if(toggle){
-				  displayAlartTime(modeStatus);
+				  displayAlertTime(modeStatus);
 			  }else{
 				  offMinute();
 			  }
@@ -596,14 +596,14 @@ void setupAlart()
 		  if(button_count[3] == 1)
 		  {
 			  button_count[3] = 0;
-			  minuteAlart++;
-			  checkTimeAlart();
+			  minuteAlert++;
+			  checkTimeAlert();
 		  }
 	  }else if(modifyStatus == 2){
 		  if(isFlagModify() == 1){
 			  toggle = 1 - toggle;
 			  if(toggle){
-				  displayAlartTime(modeStatus);
+				  displayAlertTime(modeStatus);
 			  }else{
 				  offHour();
 			  }
@@ -611,14 +611,14 @@ void setupAlart()
 		  if(button_count[3] == 1)
 		  {
 			  button_count[3] = 0;
-			  hourAlart++;
-			  checkTimeAlart();
+			  hourAlert++;
+			  checkTimeAlert();
 		  }
 	  }else if(modifyStatus == 3){
 		  if(isFlagModify() == 1){
 			  toggle = 1 - toggle;
 			  if(toggle){
-				  displayAlartTime(modeStatus);
+				  displayAlertTime(modeStatus);
 			  }else{
 				  offArticle();
 			  }
@@ -626,14 +626,14 @@ void setupAlart()
 		  if(button_count[3] == 1)
 		  {
 			  button_count[3] = 0;
-			  dayAlart++;
-			  checkTimeAlart();
+			  dayAlert++;
+			  checkTimeAlert();
 		  }
 	  }else if(modifyStatus == 4){
 		  if(isFlagModify() == 1){
 			  toggle = 1 - toggle;
 			  if(toggle){
-				  displayAlartTime(modeStatus);
+				  displayAlertTime(modeStatus);
 			  }else{
 				  offDay();
 			  }
@@ -641,14 +641,14 @@ void setupAlart()
 		  if(button_count[3] == 1)
 		  {
 			  button_count[3] = 0;
-			  dateAlart++;
-			  checkTimeAlart();
+			  dateAlert++;
+			  checkTimeAlert();
 		  }
 	  }else if(modifyStatus == 5){
 		  if(isFlagModify() == 1){
 			  toggle = 1 - toggle;
 			  if(toggle){
-				  displayAlartTime(modeStatus);
+				  displayAlertTime(modeStatus);
 			  }else{
 				  offMonth();
 			  }
@@ -656,14 +656,14 @@ void setupAlart()
 		  if(button_count[3] == 1)
 		  {
 			  button_count[3] = 0;
-			  monthAlart++;
-			  checkTimeAlart();
+			  monthAlert++;
+			  checkTimeAlert();
 		  }
 	  }else if(modifyStatus == 6){
 		  if(isFlagModify() == 1){
 			  toggle = 1 - toggle;
 			  if(toggle){
-				  displayAlartTime(modeStatus);
+				  displayAlertTime(modeStatus);
 			  }else{
 				  offYear();
 			  }
@@ -671,29 +671,29 @@ void setupAlart()
 		  if(button_count[3] == 1)
 		  {
 			  button_count[3] = 0;
-			  yearAlart++;
-			  checkTimeAlart();
+			  yearAlert++;
+			  checkTimeAlert();
 		  }
 	  }
 }
 
-void checkAlart()
+void checkAlert()
 {
-	if(ds3231_sec == secondAlart)
+	if(ds3231_sec == secondAlert)
 	{
-		if(ds3231_min == minuteAlart)
+		if(ds3231_min == minuteAlert)
 		{
-			if(ds3231_hours == hourAlart)
+			if(ds3231_hours == hourAlert)
 			{
-				if(ds3231_date == dateAlart)
+				if(ds3231_date == dateAlert)
 				{
-					if(ds3231_day == dayAlart)
+					if(ds3231_day == dayAlert)
 					{
-						if(ds3231_month == monthAlart)
+						if(ds3231_month == monthAlert)
 						{
-							if(ds3231_year == yearAlart)
+							if(ds3231_year == yearAlert)
 							{
-								alartNotify();
+								alertNotify();
 							}
 						}
 					}
@@ -703,10 +703,10 @@ void checkAlart()
 	}
 }
 
-void alartNotify()
+void alertNotify()
 {
 	lcd_DrawCircle(120, 160, RED, 50, 1);
-	lcd_ShowStr(100, 160, "ALART", BLACK, RED, 24, 1);
+	lcd_ShowStr(100, 160, "Alert", BLACK, RED, 24, 1);
 }
 /* USER CODE END 4 */
 
